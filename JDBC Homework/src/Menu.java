@@ -11,6 +11,7 @@ public class Menu {
   public static final String JDBC_DRIVER = "com.mysql.jdbc.Driver";
   private static java.sql.Connection conn = null;
   public static PreparedStatement ps = null;
+  
   public static void showMenu(){
     System.out.println("1 - Add Person");
     System.out.println("2 - Delete Person");
@@ -19,7 +20,6 @@ public class Menu {
   }
   
   public static void showPerson(){
-    
     List<Person> list = new ArrayList<Person>();
     ResultSet res;
     try {
@@ -28,7 +28,7 @@ public class Menu {
     while(res.next()) {
       list.add(new Person(res.getInt(1),res.getString(2),res.getString(3), res.getInt(4)));
     }
-    System.out.println("น |Persons Name|Age");
+    System.out.println("ยน |Persons Name|Age");
     for (Person person : list) {
       System.out.println(person);
     }
@@ -51,14 +51,11 @@ public class Menu {
     try {     
       Class.forName("com.mysql.jdbc.Driver");
       conn = DriverManager.getConnection(URL, USER, PASSWORD);
-      ps = conn
-        .prepareStatement("create table if not exists person (`id` int not null auto_increment, `firstName` varchar(50), `lastName` varchar(50), age int, primary key (id))");
+      ps = conn.prepareStatement("create table if not exists person (`id` int not null auto_increment, `firstName` varchar(50), `lastName` varchar(50), age int, primary key (id))");
       ps.execute();
-      
       while(status){
         showMenu();
         menu = scanner.nextInt();
-        
         if(menu == 1){
           System.out.println("Enter First Name please");
           String firstName = scanner.next();
@@ -72,7 +69,6 @@ public class Menu {
           ps.setInt(3, age);
           ps.execute();
         }
-        
         else if(menu == 2){
           showPerson();
           System.out.println("Select id for delete: ");
@@ -81,7 +77,6 @@ public class Menu {
           ps.setInt(1, id);
           ps.execute();
         }
-        
         else if(menu == 3){
           showPerson();
         }
@@ -100,7 +95,5 @@ public class Menu {
     }catch (InputMismatchException e) {
       System.err.println("You select symbol\nGood bye!");
     } 
-
   }
-
 }
