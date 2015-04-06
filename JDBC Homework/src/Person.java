@@ -5,7 +5,6 @@ public class Person {
   private int age;
   
   public Person(int id, String firstName, String secondName, int age) {
-    super();
     this.id = id;
     this.firstName = firstName;
     this.secondName = secondName;
